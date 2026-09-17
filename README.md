@@ -1,108 +1,224 @@
-# Tiffin Subscription Manager
+# 🍱 Tiffin Subscription & Billing System
 
-A full-stack web application for home-style tiffin and lunch delivery businesses.
+A full-stack web application for managing a home-style tiffin subscription service. Customers can subscribe to a monthly plan, pause their subscription when required, and receive a prorated bill based only on the weekdays on which tiffin was delivered.
 
-The application helps a tiffin owner manage monthly customer subscriptions, pause and resume deliveries, calculate pro-rated monthly bills, search customers by phone, view active/paused customers, and generate delivery notifications for customers due today.
+## 📌 Problem Statement
 
----
+A tiffin owner needs to manage customers, monthly subscriptions, pause periods, and billing.
 
-## 1. Problem Statement
+The system allows the owner to:
 
-A home-style tiffin service usually works on a monthly subscription model.
+* Add and manage customers.
+* Search customers using their phone number.
+* Track active and paused subscriptions.
+* Pause subscriptions for selected days.
+* Calculate the number of actual delivery days.
+* Generate a prorated monthly bill.
 
-Customers receive lunch every weekday, but sometimes they need to pause their subscription for a few days because of:
+## ✨ Key Features
 
-- Travel
-- Festivals
-- Personal reasons
-- Temporary absence
+* Customer registration and management
+* Phone-number based customer lookup
+* Monthly subscription management
+* Pause and resume functionality
+* Active/paused customer status
+* Weekday-based delivery calculation
+* Automatic prorated billing
+* Angular frontend with reusable services and components
+* RESTful Spring Boot backend
+* Database persistence using JPA
 
-A customer should not be charged for weekdays on which the tiffin was paused.
+## 🛠️ Tech Stack
 
-The application solves this by allowing the tiffin owner to:
+### Backend
 
-1. Create customer subscriptions.
-2. Store the customer's monthly plan price.
-3. Pause a customer's delivery.
-4. Resume a customer's delivery.
-5. Calculate the customer's monthly bill based on actual served weekdays.
-6. Search customers by phone number.
-7. View customers using pagination.
-8. Sort customer records.
-9. Identify active and paused customers.
-10. Notify customers who are due for delivery today.
-11. Store notifications in an outbox for verification.
- Tech Stack - SpringBoot (java)
- frontend - angular
- database - h2
----
+* Java
+* Spring Boot
+* Spring Data JPA
+* REST APIs
+* Maven
 
-# 2. Main Features
+### Frontend
 
-## Customer Subscription
+* Angular
+* TypeScript
+* HTML
+* CSS
 
-The owner can create a customer subscription with:
+### Database
 
-- Customer name
-- Phone number
-- Monthly plan price
-- Subscription start date
+* MySQL
 
-Each phone number is unique.
+## 🏗️ Architecture
 
-A newly created customer is automatically marked as:
-
-`ACTIVE`
-
----
-
-## Pause Subscription
-
-The owner can pause an active customer.
-
-A pause period stores:
-
-- Customer
-- Pause start date
-- Pause end date
-
-When a pause is created, the customer status changes from:
-
-`ACTIVE -> PAUSED`
-
-An open pause has:
-
-`endDate = null`
-
-This represents a currently active pause.
-
----
-
-## Resume Subscription
-
-A paused customer can be resumed.
-
-When resumed:
-
-- The current open pause period is found.
-- Its end date is stored.
-- Customer status changes from `PAUSED` to `ACTIVE`.
-
-The resume date cannot be before the pause start date.
-
----
-
-## Pro-rated Billing
-
-Monthly billing is based on weekdays.
-
-Saturday and Sunday are not counted as delivery days.
-
-The system calculates:
+The project follows a layered full-stack architecture:
 
 ```text
-Total weekdays in month
-        -
-Paused weekdays
-        =
-Served weekdays
+Angular Frontend
+       ↓
+Angular Services
+       ↓
+REST API
+       ↓
+Spring Boot Controller
+       ↓
+Service Layer
+       ↓
+Repository Layer
+       ↓
+MySQL Database
+```
+
+### Backend Layers
+
+**Controller**
+
+* Exposes REST endpoints.
+* Handles HTTP requests and responses.
+
+**Service**
+
+* Contains business logic.
+* Handles subscriptions, pauses, delivery-day calculation, and billing.
+
+**Repository**
+
+* Uses Spring Data JPA.
+* Handles database operations.
+
+**Database**
+
+* Stores customer, subscription, and pause information.
+
+### Frontend Structure
+
+**Components**
+
+* Responsible for UI and user interaction.
+
+**Services**
+
+* Responsible for communicating with backend REST APIs.
+* Keeps HTTP/API logic separate from UI components.
+
+**Models / Interfaces**
+
+* Define the structure of customer, subscription, pause, and billing data.
+
+## 💰 Billing Logic
+
+The monthly bill is calculated based on actual delivery days.
+
+```text
+Bill = Monthly Plan Price / Total Weekdays × Delivered Weekdays
+```
+
+Paused days are excluded from the delivered-day calculation, so customers are not charged for days when their subscription was paused.
+
+## 🔄 Example Flow
+
+When the owner searches for a customer:
+
+```text
+Customer Component
+       ↓
+Customer Service
+       ↓
+GET Customer API
+       ↓
+Spring Boot Controller
+       ↓
+Customer Service Layer
+       ↓
+Repository
+       ↓
+MySQL
+       ↓
+Customer Details
+       ↓
+Angular UI
+```
+
+For billing:
+
+```text
+Billing Component
+       ↓
+Billing Service
+       ↓
+Billing API
+       ↓
+Calculate Delivery Days
+       ↓
+Exclude Paused Days
+       ↓
+Calculate Prorated Bill
+       ↓
+Return Billing Response
+```
+
+## 🚀 Running the Project
+
+### Backend
+
+Navigate to the backend directory:
+
+```bash
+cd backend
+```
+
+Configure the MySQL database and application properties, then run:
+
+```bash
+mvn spring-boot:run
+```
+
+### Frontend
+
+Navigate to the frontend directory:
+
+```bash
+cd frontend
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start Angular:
+
+```bash
+ng serve
+```
+
+The frontend will be available at the Angular development URL.
+
+## 📂 Project Structure
+
+```text
+tiffin_subscription/
+│
+├── backend/
+│   └── src/
+│       └── main/
+│           ├── java/
+│           └── resources/
+│
+├── frontend/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── components/
+│   │   │   ├── services/
+│   │   │   └── models/
+│   │   └── assets/
+│   │
+│   └── package.json
+│
+└── README.md
+```
+
+## 🎯 Design Goal
+
+The main goal of the project is to keep **UI, API communication, business logic, and database operations separated**. This makes the application easier to understand, maintain, test, and extend with future features such as online payments, notifications, delivery tracking, and reports.
