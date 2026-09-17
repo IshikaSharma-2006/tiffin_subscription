@@ -47,7 +47,7 @@ The system allows the owner to:
 
 ### Database
 
-* MySQL
+* H2 Database
 
 ## 🏗️ Architecture
 
