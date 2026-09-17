@@ -1,0 +1,177 @@
+<div class="dashboard-page">
+
+  <!-- HEADER -->
+  <header class="dashboard-header">
+    <div class="brand">
+      <span class="brand-icon">🍱</span>
+
+      <div>
+        <h1>TiffinFlow</h1>
+        <p>Owner Dashboard</p>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <span class="welcome">
+        Welcome, {{ ownerName }}
+      </span>
+
+      <button class="logout-btn" (click)="logout()">
+        Logout
+      </button>
+    </div>
+  </header>
+
+
+  <!-- MAIN -->
+  <main class="dashboard-content">
+
+    <div class="page-heading">
+      <div>
+        <h2>Dashboard</h2>
+        <p>
+          Manage customers, subscriptions, pauses and monthly bills.
+        </p>
+      </div>
+
+      <a routerLink="/owner/dashboard" class="refresh-btn">
+        ↻ Refresh
+      </a>
+    </div>
+
+
+    <!-- STATS -->
+    <section class="stats-grid">
+
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+
+        <div>
+          <span>Total Customers</span>
+          <strong>{{ totalCustomers }}</strong>
+        </div>
+      </div>
+
+
+      <div class="stat-card active">
+        <div class="stat-icon">✓</div>
+
+        <div>
+          <span>Active</span>
+          <strong>{{ activeCustomers }}</strong>
+        </div>
+      </div>
+
+
+      <div class="stat-card paused">
+        <div class="stat-icon">⏸</div>
+
+        <div>
+          <span>Paused</span>
+          <strong>{{ pausedCustomers }}</strong>
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- QUICK ACTIONS -->
+    <section class="section">
+
+      <div class="section-heading">
+        <div>
+          <h3>Quick Actions</h3>
+          <p>Manage your tiffin service</p>
+        </div>
+      </div>
+
+
+      <div class="actions-grid">
+
+        <a routerLink="/owner/dashboard" class="action-card">
+          <div class="action-icon">➕</div>
+
+          <div>
+            <h4>Subscribe Customer</h4>
+            <p>Add a new customer and monthly plan.</p>
+          </div>
+
+          <span class="arrow">→</span>
+        </a>
+
+
+        <a routerLink="/owner/dashboard" class="action-card">
+          <div class="action-icon">👥</div>
+
+          <div>
+            <h4>Customers</h4>
+            <p>View active and paused customers.</p>
+          </div>
+
+          <span class="arrow">→</span>
+        </a>
+
+
+        <a routerLink="/owner/dashboard" class="action-card">
+          <div class="action-icon">🔍</div>
+
+          <div>
+            <h4>Search by Phone</h4>
+            <p>Find a customer using their phone number.</p>
+          </div>
+
+          <span class="arrow">→</span>
+        </a>
+
+
+        <a routerLink="/owner/dashboard" class="action-card">
+          <div class="action-icon">🧾</div>
+
+          <div>
+            <h4>Monthly Bills</h4>
+            <p>Calculate bills based on served weekdays.</p>
+          </div>
+
+          <span class="arrow">→</span>
+        </a>
+
+      </div>
+
+    </section>
+
+
+    <!-- CUSTOMER SECTION -->
+    <section class="section customer-preview">
+
+      <div class="section-heading">
+        <div>
+          <h3>Customer Management</h3>
+          <p>Keep track of who is active and who is paused.</p>
+        </div>
+
+        <span class="coming-soon">Ready to connect</span>
+      </div>
+
+
+      <div class="empty-state">
+
+        <div class="empty-icon">🍱</div>
+
+        <h3>No customer data loaded yet</h3>
+
+        <p>
+          Customer data will appear here once the customer API
+          is connected to the dashboard.
+        </p>
+
+        <button class="primary-btn">
+          Add First Customer
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>

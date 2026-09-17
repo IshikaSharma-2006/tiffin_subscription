@@ -1,0 +1,111 @@
+<div class="register-page">
+
+  <div class="register-card">
+
+    <div class="brand">
+      <span class="brand-icon">🍱</span>
+      <h1>TiffinFlow</h1>
+    </div>
+
+    <p class="subtitle">Owner Registration</p>
+
+    <h2>Create your account</h2>
+
+    <p class="description">
+      Start managing your tiffin customers and monthly subscriptions.
+    </p>
+
+    <form (ngSubmit)="register()">
+
+      <!-- OWNER NAME -->
+      <div class="form-group">
+        <label for="name">Owner Name</label>
+
+        <input
+          id="name"
+          type="text"
+          name="name"
+          [(ngModel)]="name"
+          placeholder="Enter your name"
+          required
+        />
+      </div>
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="owner@example.com"
+          required
+        />
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Create a password"
+          required
+        />
+      </div>
+
+      <!-- CONFIRM PASSWORD -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          name="confirmPassword"
+          [(ngModel)]="confirmPassword"
+          placeholder="Confirm your password"
+          required
+        />
+      </div>
+
+      <!-- SUCCESS -->
+      @if (successMessage) {
+        <p class="success">
+          {{ successMessage }}
+        </p>
+      }
+
+      <!-- ERROR -->
+      @if (errorMessage) {
+        <p class="error">
+          {{ errorMessage }}
+        </p>
+      }
+
+      <!-- SUBMIT -->
+      <button
+        type="submit"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Creating Account...' : 'Create Account' }}
+      </button>
+
+    </form>
+
+    <p class="login-text">
+      Already have an account?
+      <a routerLink="/owner/login">Login</a>
+    </p>
+
+    <a routerLink="/" class="back-link">
+      ← Back to home
+    </a>
+
+  </div>
+
+</div>

@@ -1,0 +1,76 @@
+<div class="login-page">
+
+  <div class="login-card">
+
+    <div class="brand">
+      <span class="brand-icon">🍱</span>
+      <h1>TiffinFlow</h1>
+    </div>
+
+    <p class="subtitle">Owner Login</p>
+
+    <h2>Welcome back</h2>
+
+    <p class="description">
+      Login to manage customers, pauses and monthly bills.
+    </p>
+
+    <form (ngSubmit)="login()">
+
+      <!-- EMAIL -->
+      <div class="form-group">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="email"
+          placeholder="owner@example.com"
+          required
+        />
+      </div>
+
+      <!-- PASSWORD -->
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          id="password"
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <!-- ERROR -->
+      @if (errorMessage) {
+        <p class="error">
+          {{ errorMessage }}
+        </p>
+      }
+
+      <!-- SUBMIT -->
+      <button
+        type="submit"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+
+    </form>
+
+    <p class="register-text">
+      Don't have an account?
+      <a routerLink="/owner/register">Create account</a>
+    </p>
+
+    <a routerLink="/" class="back-link">
+      ← Back to home
+    </a>
+
+  </div>
+
+</div>

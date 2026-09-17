@@ -1,0 +1,247 @@
+.bill-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 45px 20px;
+}
+
+.bill-card {
+  width: 100%;
+  max-width: 680px;
+}
+
+.back-link {
+  display: inline-block;
+
+  color: #6b7280;
+  text-decoration: none;
+
+  font-size: 13px;
+
+  margin-bottom: 22px;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 25px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+
+  background: #fff7ed;
+
+  border-radius: 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+}
+
+.heading h1 {
+  margin: 0 0 5px;
+  font-size: 24px;
+}
+
+.heading p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.search-section,
+.month-section,
+.customer-card,
+.bill-result {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  padding: 22px;
+
+  margin-bottom: 16px;
+}
+
+.search-section label,
+.month-section label {
+  display: block;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  margin-bottom: 8px;
+}
+
+.search-row {
+  display: flex;
+  gap: 9px;
+}
+
+.search-row input,
+.month-section input {
+  flex: 1;
+
+  padding: 11px 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+}
+
+button {
+  border: none;
+
+  background: #111827;
+  color: white;
+
+  border-radius: 8px;
+
+  padding: 11px 17px;
+
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin-bottom: 20px;
+}
+
+.avatar {
+  width: 45px;
+  height: 45px;
+
+  background: #f3f4f6;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.customer-info h3 {
+  margin: 0 0 4px;
+}
+
+.customer-info p {
+  margin: 0;
+
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.details {
+  display: flex;
+  gap: 60px;
+
+  padding-top: 17px;
+  border-top: 1px solid #f0f1f2;
+}
+
+.details span {
+  display: block;
+
+  color: #6b7280;
+  font-size: 12px;
+
+  margin-bottom: 5px;
+}
+
+.details strong {
+  font-size: 15px;
+}
+
+.month-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.month-section label {
+  margin: 0;
+}
+
+.month-section input {
+  flex: 1;
+}
+
+.bill-result {
+  text-align: center;
+
+  background: #111827;
+  color: white;
+
+  padding: 32px;
+}
+
+.bill-result span {
+  display: block;
+
+  color: #d1d5db;
+  font-size: 13px;
+
+  margin-bottom: 8px;
+}
+
+.bill-result strong {
+  display: block;
+
+  font-size: 34px;
+
+  margin-bottom: 10px;
+}
+
+.bill-result p {
+  margin: 0;
+
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.error {
+  background: #fef2f2;
+  color: #b91c1c;
+
+  padding: 11px 13px;
+
+  border-radius: 8px;
+
+  margin-bottom: 15px;
+
+  font-size: 13px;
+}
+
+@media (max-width: 650px) {
+
+  .search-row {
+    flex-direction: column;
+  }
+
+  .month-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .details {
+    gap: 25px;
+  }
+}

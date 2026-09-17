@@ -1,0 +1,128 @@
+<div class="pause-page">
+
+  <div class="pause-card">
+
+    <a
+      routerLink="/owner/customers"
+      class="back-link"
+    >
+      ← Back to Customers
+    </a>
+
+
+    @if (loading && !customer) {
+
+      <div class="loading">
+        Loading customer...
+      </div>
+
+    } @else if (customer) {
+
+      <div class="customer-header">
+
+        <div class="avatar">
+          {{ customer.name.charAt(0).toUpperCase() }}
+        </div>
+
+        <div>
+          <h1>{{ customer.name }}</h1>
+          <p>{{ customer.phone }}</p>
+        </div>
+
+        @if (customer.status === 'ACTIVE') {
+
+          <span class="status active">
+            Active
+          </span>
+
+        } @else {
+
+          <span class="status paused">
+            Paused
+          </span>
+
+        }
+
+      </div>
+
+
+      @if (message) {
+        <div class="success">
+          {{ message }}
+        </div>
+      }
+
+
+      @if (errorMessage) {
+        <div class="error">
+          {{ errorMessage }}
+        </div>
+      }
+
+
+      <!-- PAUSE -->
+
+      <div class="action-box">
+
+        <div>
+          <h2>Pause Subscription</h2>
+
+          <p>
+            Stop charging the customer for days they are not served.
+          </p>
+        </div>
+
+        <label>
+          Pause from
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="pauseStartDate"
+        />
+
+        <button
+          (click)="pause()"
+          [disabled]="loading || customer.status === 'PAUSED'"
+        >
+          Pause Customer
+        </button>
+
+      </div>
+
+
+      <!-- RESUME -->
+
+      <div class="action-box">
+
+        <div>
+          <h2>Resume Subscription</h2>
+
+          <p>
+            End the current pause period and resume deliveries.
+          </p>
+        </div>
+
+        <label>
+          Resume on
+        </label>
+
+        <input
+          type="date"
+          [(ngModel)]="resumeEndDate"
+        />
+
+        <button
+          (click)="resume()"
+          [disabled]="loading || customer.status === 'ACTIVE'"
+        >
+          Resume Customer
+        </button>
+
+      </div>
+
+    }
+
+  </div>
+
+</div>

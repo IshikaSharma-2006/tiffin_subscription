@@ -1,0 +1,144 @@
+.form-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 45px 20px;
+}
+
+.form-card {
+  width: 100%;
+  max-width: 560px;
+
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  padding: 32px;
+  height: fit-content;
+}
+
+.back-link {
+  color: #6b7280;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+
+  margin: 25px 0 28px;
+}
+
+.brand > span {
+  width: 45px;
+  height: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #fff3e8;
+  border-radius: 12px;
+
+  font-size: 22px;
+}
+
+.brand h1 {
+  margin: 0 0 4px;
+  font-size: 23px;
+}
+
+.brand p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.form-group {
+  margin-bottom: 19px;
+}
+
+.form-group label {
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group input {
+  width: 100%;
+
+  padding: 12px 13px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  font-size: 14px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #6b7280;
+}
+
+.price-input {
+  position: relative;
+}
+
+.price-input span {
+  position: absolute;
+  left: 13px;
+  top: 12px;
+  color: #6b7280;
+}
+
+.price-input input {
+  padding-left: 30px;
+}
+
+button {
+  width: 100%;
+
+  border: none;
+  border-radius: 9px;
+
+  padding: 13px;
+
+  background: #111827;
+  color: white;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.success,
+.error {
+  padding: 11px 13px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.success {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.error {
+  background: #fef2f2;
+  color: #b91c1c;
+}

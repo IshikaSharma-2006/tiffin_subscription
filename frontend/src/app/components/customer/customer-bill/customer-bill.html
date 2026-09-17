@@ -1,0 +1,152 @@
+<div class="bill-page">
+
+  <div class="bill-card">
+
+    <a
+      routerLink="/owner/dashboard"
+      class="back-link"
+    >
+      ← Back to Dashboard
+    </a>
+
+
+    <div class="heading">
+
+      <div class="icon">
+        🧾
+      </div>
+
+      <div>
+        <h1>Monthly Bill</h1>
+        <p>
+          Calculate the bill for days actually served.
+        </p>
+      </div>
+
+    </div>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-section">
+
+      <label>
+        Customer Phone
+      </label>
+
+      <div class="search-row">
+
+        <input
+          type="tel"
+          [(ngModel)]="phone"
+          placeholder="9876543210"
+        />
+
+        <button
+          (click)="searchCustomer()"
+          [disabled]="loading"
+        >
+          Find Customer
+        </button>
+
+      </div>
+
+    </div>
+
+
+    @if (errorMessage) {
+
+      <div class="error">
+        {{ errorMessage }}
+      </div>
+
+    }
+
+
+    @if (customer) {
+
+      <div class="customer-card">
+
+        <div class="customer-info">
+
+          <div class="avatar">
+            {{ customer.name.charAt(0).toUpperCase() }}
+          </div>
+
+          <div>
+            <h3>{{ customer.name }}</h3>
+            <p>{{ customer.phone }}</p>
+          </div>
+
+        </div>
+
+
+        <div class="details">
+
+          <div>
+            <span>Monthly Plan</span>
+            <strong>
+              ₹{{ customer.monthlyPlanPrice }}
+            </strong>
+          </div>
+
+          <div>
+            <span>Status</span>
+
+            <strong>
+              {{ customer.status }}
+            </strong>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MONTH -->
+
+      <div class="month-section">
+
+        <label>
+          Billing Month
+        </label>
+
+        <input
+          type="month"
+          [(ngModel)]="month"
+        />
+
+        <button
+          (click)="calculateBill()"
+          [disabled]="loading"
+        >
+          {{ loading ? 'Calculating...' : 'Calculate Bill' }}
+        </button>
+
+      </div>
+
+
+      @if (bill !== null) {
+
+        <div class="bill-result">
+
+          <span>Amount to collect</span>
+
+          <strong>
+            ₹{{ bill.toFixed(2) }}
+          </strong>
+
+          <p>
+            Bill is calculated from weekdays actually served,
+            excluding paused days.
+          </p>
+
+        </div>
+
+      }
+
+    }
+
+  </div>
+
+</div>

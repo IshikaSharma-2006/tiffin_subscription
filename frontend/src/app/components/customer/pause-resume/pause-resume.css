@@ -1,0 +1,170 @@
+.pause-page {
+  min-height: 100vh;
+  background: #f7f8fa;
+
+  display: flex;
+  justify-content: center;
+
+  padding: 45px 20px;
+}
+
+.pause-card {
+  width: 100%;
+  max-width: 650px;
+}
+
+.back-link {
+  display: inline-block;
+
+  color: #6b7280;
+  text-decoration: none;
+
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.customer-header {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  padding: 22px;
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+
+  margin-bottom: 18px;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  background: #f3f4f6;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+.customer-header h1 {
+  margin: 0 0 4px;
+  font-size: 20px;
+}
+
+.customer-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.status {
+  margin-left: auto;
+
+  padding: 6px 11px;
+
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.status.active {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status.paused {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.action-box {
+  background: white;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+
+  padding: 23px;
+
+  margin-bottom: 16px;
+}
+
+.action-box h2 {
+  margin: 0 0 5px;
+  font-size: 17px;
+}
+
+.action-box p {
+  margin: 0 0 18px;
+
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.action-box label {
+  display: block;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  margin-bottom: 7px;
+}
+
+.action-box input {
+  width: 100%;
+
+  padding: 11px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+
+  margin-bottom: 12px;
+}
+
+.action-box button {
+  border: none;
+
+  padding: 11px 18px;
+
+  border-radius: 8px;
+
+  background: #111827;
+  color: white;
+
+  cursor: pointer;
+}
+
+.action-box button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.success,
+.error {
+  padding: 11px 13px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-size: 13px;
+}
+
+.success {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.error {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.loading {
+  padding: 50px;
+  text-align: center;
+}
