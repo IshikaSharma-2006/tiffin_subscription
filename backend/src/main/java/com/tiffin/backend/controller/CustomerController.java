@@ -11,7 +11,7 @@ import java.time.YearMonth;
 
 @RestController
 @RequestMapping("/api/customers")
-@CrossOrigin
+@CrossOrigin(origins = "https://super-duper-space-happiness-xrp5qq6qpvgw3vg4q-4200.app.github.dev")
 public class CustomerController {
 
     private final CustomerService customerService;

@@ -9,7 +9,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin
+@CrossOrigin(origins = "https://super-duper-space-happiness-xrp5qq6qpvgw3vg4q-4200.app.github.dev")
 public class AuthController {
 
     private final AuthService authService;
