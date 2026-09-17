@@ -1,275 +1,107 @@
-7. REST API Documentation
+# Tiffin Subscription System – Reasoning
 
-Base URL:
+## Architecture
 
-http://localhost:8080
+The application follows a layered architecture:
 
-In GitHub Codespaces, the backend can also be accessed through the forwarded port URL.
+**Angular Frontend → REST API → Spring Boot → Repository → Database**
 
-8. Authentication APIs
-8.1 Register Owner
-Endpoint
-POST /api/auth/register
-Request Body
-{
-  "name": "Tiffin Owner",
-  "email": "owner@example.com",
-  "password": "password123"
-}
-Logic
-Check whether the email already exists.
-If it exists, reject the registration.
-Hash the password using BCrypt.
-Save the owner.
-Return the saved user.
-Example Response
-{
-  "id": 1,
-  "name": "Tiffin Owner",
-  "email": "owner@example.com",
-  "password": "$2a$..."
-}
+---
 
-The password is stored as a BCrypt hash in the database.
+## Backend Architecture
 
-8.2 Login Owner
-Endpoint
-POST /api/auth/login
-Request Body
-{
-  "email": "owner@example.com",
-  "password": "password123"
-}
-Logic
-Find the user by email.
-If the email does not exist, reject the login.
-Compare the supplied password with the BCrypt hash.
-If the password does not match, reject the login.
-Return the owner.
-9. Customer APIs
-9.1 Create Customer
-Endpoint
-POST /api/customers
-Request Body
-{
-  "name": "Rahul Sharma",
-  "phone": "9876543210",
-  "monthlyPlanPrice": 3000,
-  "subscriptionStartDate": "2026-09-01"
-}
-Logic
+### Controller
 
-The service first checks:
+* Exposes REST APIs for customer management, subscriptions, pauses, and billing.
+* Receives HTTP requests and returns responses.
+* Keeps business logic outside the controller.
 
-Does this phone number already exist?
+### Service
 
-If yes:
+* Contains the main business logic.
+* Handles customer lookup using phone number.
+* Manages active/paused subscription status.
+* Calculates weekday delivery days.
+* Generates the monthly prorated bill.
 
-Customer with this phone already exists
+### Repository
 
-If not:
+* Uses Spring Data JPA to communicate with the database.
+* Handles customer, subscription, and pause data.
+* Keeps database operations separate from business logic.
 
-status = ACTIVE
+### Database
 
-and the customer is saved.
+Stores:
 
-9.2 Get Customer by ID
-Endpoint
-GET /api/customers/{id}
+* Customer details
+* Subscription/plan details
+* Pause information
+* Subscription status
 
-Example:
+### Billing Logic
 
-GET /api/customers/1
-Purpose
+Customers are charged only for weekdays on which tiffin was actually delivered.
 
-Fetch one customer using their database ID.
+**Bill = Monthly Plan Price / Total Weekdays × Delivered Weekdays**
 
-9.3 Get Customer by Phone
-Endpoint
-GET /api/customers/phone/{phone}
+Paused days are excluded from the delivered-day count.
 
-Example:
+### API Flow
 
-GET /api/customers/phone/9876543210
-Purpose
+`Client → Controller → Service → Repository → Database`
 
-The owner can search for a customer using the phone number.
+---
 
-This directly supports the business requirement that customers should be looked up by phone.
+# Frontend Architecture – Angular
 
-9.4 List Customers
-Endpoint
-GET /api/customers
+The frontend is divided into **Components, Services and Models**.
 
-Default request:
+### Components
 
-GET /api/customers?page=0&size=10&sortBy=name&direction=asc
-Parameters
-Parameter	Default	Description
-page	0	Page number
-size	10	Number of records
-sortBy	name	Field to sort by
-direction	asc	asc or desc
-Example
-GET /api/customers?page=0&size=5&sortBy=name&direction=desc
-Purpose
+Components handle the UI and user interaction.
 
-Provides pagination and sorting for customer records.
+Main components include:
 
-10. Pause / Resume APIs
-10.1 Pause Customer
-Endpoint
-POST /api/customers/{id}/pause
+* Customer management
+* Customer list
+* Subscription/pause management
+* Billing
+* Dashboard/status view
 
-Example:
+Components collect user input and display API responses. Business and HTTP logic is kept inside services.
 
-POST /api/customers/1/pause?startDate=2026-09-10
-Logic
-Find the customer.
-Check whether the customer is already paused.
-Create a new PausePeriod.
-Store the pause start date.
-Leave end date as null.
-Change customer status to PAUSED.
+### Angular Services
 
-State transition:
-
-ACTIVE
-   ↓
-PAUSED
-10.2 Resume Customer
-Endpoint
-POST /api/customers/{id}/resume
-
-Example:
-
-POST /api/customers/1/resume?endDate=2026-09-15
-Logic
-Find the customer.
-Ensure the customer is currently paused.
-Find the pause period whose end date is null.
-Validate that the resume date is not before the pause start date.
-Set the pause end date.
-Change customer status back to ACTIVE.
-
-State transition:
-
-PAUSED
-   ↓
-ACTIVE
-11. Billing API
-Calculate Monthly Bill
-Endpoint
-GET /api/customers/{id}/bill
-Parameter
-month=YYYY-MM
-
-Example:
-
-GET /api/customers/1/bill?month=2026-09
-Billing Algorithm
-
-Suppose:
-
-Monthly plan = ₹3000
-September weekdays = 22
-Paused weekdays = 4
-
-Then:
-
-Served weekdays
-= 22 - 4
-= 18
-
-Bill:
-
-3000 × 18 / 22
-= 2454.545...
-
-Rounded:
-
-₹2454.55
-Billing Steps
-
-The service performs the following:
-
-Step 1
-
-Find the customer.
-
-Step 2
-
-Determine:
-
-monthStart
-monthEnd
-Step 3
-
-Count weekdays in the requested month.
-
-Saturday and Sunday are ignored.
-
-Step 4
-
-Determine the effective service start date.
-
-If the subscription started after the beginning of the requested month, the subscription start date is used.
-
-Step 5
-
-Load all pause periods for that customer.
-
-Step 6
-
-Clip each pause period to the relevant billing range.
+Services are used to communicate with the Spring Boot REST APIs.
 
 For example:
 
-Month:
-01 Sep - 30 Sep
+* `CustomerService` – add, search and fetch customers.
+* `SubscriptionService` – manage subscriptions and pause/resume operations.
+* `BillingService` – request and display monthly bills.
 
-Pause:
-10 Aug - 05 Sep
+This keeps API calls reusable and prevents duplicate HTTP logic inside components.
 
-Only:
+### Models / Interfaces
 
-01 Sep - 05 Sep
+TypeScript interfaces/models are used to define the structure of:
 
-is relevant for September billing.
+* Customer
+* Subscription
+* Pause period
+* Billing response
 
-Step 7
+This provides type safety and makes frontend data handling easier.
 
-Count paused weekdays.
+### Frontend Flow
 
-Step 8
+`Component → Angular Service → HTTP Request → Spring Boot API → Database`
 
-Calculate:
+The API response is returned to the Angular service and then displayed by the component.
 
-servedDays = totalWeekdays - pausedWeekdays
-Step 9
+### Overall System Flow
 
-Prevent negative served days.
+`User → Angular Component → Angular Service → REST API → Controller → Service → Repository → Database`
 
-if servedDays < 0:
-    servedDays = 0
-Step 10
-
-Calculate the final amount using:
-
-monthlyPlanPrice × servedDays / totalWeekdays
-
-The result is rounded using:
-
-RoundingMode.HALF_UP
-
-and returned with two decimal places.
-
-12. Clock / Notification APIs
-12.1 Process Today's Deliveries
-Endpoint
-POST /clock
-Purpose
-
-Simulates the daily morning delivery notification process.
-
-The backend takes the current server date:
+This separation of responsibilities keeps the application organized, maintainable, and easy to extend.
